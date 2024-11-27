@@ -1,16 +1,17 @@
 @extends('layouts.welcomeLayout')
 
 @section('content')
-<div class="flex items-center justify-center min-h-screen bg-[url('/path/to/your/background-image.jpg')] bg-cover bg-center bg-no-repeat">
-    <div class="w-full max-w-4xl bg-white/80 rounded-xl shadow-2xl flex overflow-hidden backdrop-blur-md">
+<div class="flex items-center justify-center px-4 sm:px-6 lg:px-8 min-h-screen">
+    <div class="w-full max-w-4xl bg-white/80 rounded-xl shadow-2xl flex flex-col md:flex-row overflow-hidden backdrop-blur-md">
         <!-- Left Section with Logo -->
-        <div class="flex items-center justify-center w-1/2 bg-yellow-100">
-            <img src="{{ asset('image/oc.webp') }}" alt="Cooking Ina Logo" class="w-full h-full object-cover object-contain">
+        <div class="flex items-center justify-center w-full md:w-1/2 bg-yellow-100">
+            <img src="{{ asset('image/register.webp') }}" alt="Cooking Ina Logo" 
+                class="w-full h-full object-cover">
         </div>
 
         <!-- Right Section with Form -->
-        <div class="w-1/2 p-8">
-            <h1 class="text-4xl font-bold mb-4 text-center text-yellow-700">Join Our Cookbook Community!</h1>
+        <div class="w-full md:w-1/2 p-6 sm:p-8">
+            <h1 class="text-3xl sm:text-4xl font-bold mb-4 text-center text-yellow-700">Join Our Cookbook Community!</h1>
             <p class="text-gray-700 mb-2 text-center">Create an account to access exclusive recipes and culinary tips.</p>
             <a href="{{ route('login.index') }}" class="text-yellow-700 mb-4 block text-center underline">Already have an account? Sign in</a>
 
