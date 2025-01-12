@@ -9,6 +9,8 @@ use App\{
     Services\Auth\LoginService,
 };
 
+use Illuminate\Support\Facades\Auth;
+
 class LoginController extends Controller
 {
     protected $loginService;
@@ -28,7 +30,8 @@ class LoginController extends Controller
         $validated = $request->validated();
 
         if ($this->loginService->login($validated)) {
-            return redirect()->route('welcome')->with('Success', 'Welcome!');
+            $userRole = Auth::user()->role;
+            return redirect()->route($userRole . '.home')->with('Success', 'Welcome!');
         }
 
         return redirect()->route('login.index')->with('Failed', 'Invalid login credentials.');
