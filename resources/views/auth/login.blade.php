@@ -28,11 +28,17 @@
                 <div class="mb-4">
                     <label for="user-name" class="block text-sm font-medium text-gray-800">Username</label>
                     <input type="text" id="user-name" name="user_name" placeholder="Enter your username" class="mt-1 block w-full border-2 border-yellow-400 p-2 rounded-full focus:ring-yellow-500 focus:border-yellow-500">
+                    @error('user_name')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div class="mb-4">
                     <label for="password" class="block text-sm font-medium text-gray-800">Password</label>
                     <input type="password" id="password" name="password" placeholder="Enter your password" class="mt-1 block w-full border-2 border-yellow-400 p-2 rounded-full focus:ring-yellow-500 focus:border-yellow-500">
+                    @error('password')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div class="flex items-center justify-between mb-4">
