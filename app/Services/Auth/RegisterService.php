@@ -16,6 +16,7 @@ class RegisterService
             'email'     =>  $validated['email'],
             'password'  =>  bcrypt($validated['password']), 
             'is_verified' => false,
+            'role'      =>  'user',
         ]);
     }
 }
