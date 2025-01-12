@@ -22,15 +22,15 @@ class LoginController extends Controller
     {
         return view('auth.login');
     }
-    
+
     public function store(LoginRequest $request)
     {
         $validated = $request->validated();
-        if($this->loginService->login($validated))
-        {
-            return redirect()->route()->with('Success', 'Welcome !');
+
+        if ($this->loginService->login($validated)) {
+            return redirect()->route('welcome')->with('Success', 'Welcome!');
         }
 
-        return redirect()->route()->with('Failed', 'Invalid login credentials.');
+        return redirect()->route('login.index')->with('Failed', 'Invalid login credentials.');
     }
 }

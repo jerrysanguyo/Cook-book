@@ -14,11 +14,20 @@
             <h1 class="text-3xl sm:text-4xl font-bold mb-4 text-center text-yellow-700">Welcome Back!</h1>
             <p class="text-gray-700 mb-2 text-center">Sign in to access your account and discover new recipes.</p>
             <a href="{{ route('register.index') }}" class="text-yellow-700 mb-4 block text-center underline">Don't have an account? Register here</a>
-
-            <form>
+            
+            <!-- Failed Alert -->
+            <div class="container mx-auto mt-4">
+                @if (session('Failed'))
+                    <div class="bg-red-100 border border-red-400 text-white-700 px-4 py-3 rounded relative mb-4 text-center" role="alert">
+                        <span class="block sm:inline">{{ session('Failed') }}</span>
+                    </div>
+                @endif
+            </div>
+            <form action="{{ route('login.store') }}" method="POST">
+                @csrf
                 <div class="mb-4">
                     <label for="user-name" class="block text-sm font-medium text-gray-800">Username</label>
-                    <input type="text" id="user-name" name="user-name" placeholder="Enter your username" class="mt-1 block w-full border-2 border-yellow-400 p-2 rounded-full focus:ring-yellow-500 focus:border-yellow-500">
+                    <input type="text" id="user-name" name="user_name" placeholder="Enter your username" class="mt-1 block w-full border-2 border-yellow-400 p-2 rounded-full focus:ring-yellow-500 focus:border-yellow-500">
                 </div>
 
                 <div class="mb-4">

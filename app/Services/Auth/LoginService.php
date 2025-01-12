@@ -3,14 +3,15 @@
 namespace App\Services\Auth;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
-class loginService
+class LoginService
 {
-    public function login(array $validated): User
+    public function login(array $validated): bool
     {
         return Auth::attempt([
-            'user_name' =>  $validated['user_name'],
-            'password' =>  $validated['password']
+            'user_name' => $validated['user_name'],
+            'password' => $validated['password'],
         ]);
     }
 }

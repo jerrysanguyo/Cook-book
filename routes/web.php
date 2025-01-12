@@ -8,7 +8,7 @@ use App\{
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 Route::resource('login', LoginController::Class);
 Route::resource('register', RegisterController::class);

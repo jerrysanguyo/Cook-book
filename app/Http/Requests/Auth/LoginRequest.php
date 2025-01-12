@@ -10,12 +10,12 @@ class LoginRequest extends FormRequest
     {
         return true;
     }
-    
+
     public function rules(): array
     {
         return [
-            'user_name' =>  ['required', 'string', 'exists:users,username'],
-            'password'  =>  ['required', 'string'],
+            'user_name' => ['required', 'string', 'exists:users,user_name'],
+            'password' => ['required', 'string'],
         ];
     }
 }
