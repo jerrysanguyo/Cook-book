@@ -13,6 +13,7 @@ Route::get('/', function () {
 
 Route::resource('login', LoginController::Class);
 Route::resource('register', RegisterController::class);
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth', 'check.user.role'])->prefix('superadmin')->name('superadmin.')->group(function() 
 {

@@ -36,4 +36,10 @@ class LoginController extends Controller
 
         return redirect()->route('login.index')->with('Failed', 'Invalid login credentials.');
     }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('welcome')->with('Success', 'You have logged out successfully!');
+    }
 }
