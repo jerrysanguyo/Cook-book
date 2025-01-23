@@ -9,7 +9,7 @@ class ProfileController extends Controller
 {
     public function index()
     {
-        //
+        return view('Profile.index');
     }
     
     public function create()
@@ -36,7 +36,7 @@ class ProfileController extends Controller
     {
         //
     }
-        
+
     public function destroy(User $user)
     {
         //

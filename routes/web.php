@@ -5,11 +5,12 @@ use App\{
     Http\Controllers\Auth\LoginController,
     Http\Controllers\Auth\RegisterController,
     Http\Controllers\HomeController,
+    Http\Controllers\ProfileController,
 };
 
 Route::get('/', function () {
     return view('welcome');
-})->name('welcome');
+})->name('dashboard');
 
 Route::resource('login', LoginController::Class);
 Route::resource('register', RegisterController::class);
