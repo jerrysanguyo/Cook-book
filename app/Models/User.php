@@ -17,6 +17,8 @@ class User extends Authenticatable
         'user_name',
         'email',
         'password',
+        'email_verified_at', 
+        'is_verified'
     ];
     
     protected $hidden = [
@@ -28,4 +30,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public static function getAllUser()
+    {
+        return self::all();
+    }
+
+    public static function getUser($user)
+    {
+        return self::where('id', $user)->first();
+    }
 }
