@@ -8,9 +8,13 @@
             <img src="{{ asset('image/update.webp') }}" alt="Cooking Ina Logo" 
                 class="w-full h-full object-cover">
         </div>
-
         <!-- Right Section with Form -->
         <div class="w-full md:w-1/2 p-6 sm:p-8">
+            @if (session('Success'))
+                <div class="bg-green-500 text-white p-4 rounded mb-4 text-center">
+                    {{ session('Success') }}
+                </div>
+            @endif
             <div class="container mx-auto mt-4">
                 <div class="">
                     <div class="flex items-center">
@@ -21,39 +25,30 @@
                         </div>
                     </div>
                     <div class="mt-4">
-                        <form action="#" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route(Auth::user()->role . '.profile.update', ['profile' => Auth::user()->id]) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="mb-4">
-                                <label for="username" class="block text-gray-700">Username</label>
-                                <input type="text" name="username" id="username" value="{{ Auth::user()->user_name }}" class="w-full px-3 py-2 border-2 border-yellow-400 rounded-full focus:ring-yellow-500 focus:border-yellow-500">
+                                <label for="user_name" class="block text-gray-700">Username</label>
+                                <input type="text" name="user_name" id="user_name" value="{{ Auth::user()->user_name }}" class="w-full px-3 py-2 border-2 border-yellow-400 rounded-full focus:ring-yellow-500 focus:border-yellow-500">
                             </div>
-                            <div class="mb-4">
-                                <label for="profile_picture" class="block text-gray-700">Profile Picture</label>
-                                <div class="flex items-center">
-                                    <input type="file" name="profile_picture" id="profile_picture" class="hidden">
-                                    <label for="profile_picture" class="cursor-pointer bg-yellow-500 text-white px-4 py-2 rounded-full">
-                                        Choose File
-                                    </label>
-                                    <span id="file-chosen" class="ml-2 text-gray-600">No file chosen</span>
-                                </div>
-                            </div>
-                            <script>
-                                const fileInput = document.getElementById('profile_picture');
-                                const fileChosen = document.getElementById('file-chosen');
-
-                                fileInput.addEventListener('change', function() {
-                                    fileChosen.textContent = this.files[0].name;
-                                });
-                            </script>
+                            @error('user_name')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                             <div class="mb-4">
                                 <label for="password" class="block text-gray-700">New Password</label>
                                 <input type="password" name="password" id="password" class="w-full px-3 py-2 border-2 border-yellow-400 rounded-full focus:ring-yellow-500 focus:border-yellow-500">
                             </div>
+                            @error('password')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                             <div class="mb-4">
                                 <label for="password_confirmation" class="block text-gray-700">Confirm New Password</label>
                                 <input type="password" name="password_confirmation" id="password_confirmation" class="w-full px-3 py-2 border-2 border-yellow-400 rounded-full focus:ring-yellow-500 focus:border-yellow-500">
                             </div>
+                            @error('password_confirmation')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                             <div class="flex justify-end">
                                 <button type="submit" class="bg-yellow-600 text-white font-bold py-2 px-4 rounded-full hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2">Save Changes</button>
                             </div>
