@@ -18,7 +18,9 @@
             <div class="container mx-auto mt-4">
                 <div class="">
                     <div class="flex items-center">
-                        <img class="w-16 h-16 rounded-full mr-4" src="{{ asset('/image/default_profile.webp') }}" alt="Profile Picture">
+                        <img class="w-16 h-16 rounded-full mr-4" 
+                            src="{{ asset(Auth::user()->profilePictureUser->path ?? '/image/default_profile.webp') }}" 
+                            alt="Profile Picture">
                         <div>
                             <h2 class="text-xl font-bold">{{ Auth::user()->name }}</h2>
                             <p class="text-gray-600">{{ Auth::user()->email }}</p>
@@ -49,6 +51,28 @@
                             @error('password_confirmation')
                                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                             @enderror
+                            <div class="mb-4">
+                                <label for="profile_picture" class="block text-gray-700">Profile Picture</label>
+                                <div class="flex items-center">
+                                    <input type="file" name="profile_picture" id="profile_picture" class="hidden">
+                                    <label for="profile_picture" class="cursor-pointer bg-yellow-600 text-white font-bold py-2 px-4 rounded-full hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2">
+                                        Choose File
+                                    </label>
+                                    <span id="file-chosen" class="ml-2 text-gray-600">No file chosen</span>
+                                </div>
+                            </div>
+                            @error('profile_picture')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
+
+                            <script>
+                                const fileInput = document.getElementById('profile_picture');
+                                const fileChosen = document.getElementById('file-chosen');
+
+                                fileInput.addEventListener('change', function() {
+                                    fileChosen.textContent = this.files[0].name;
+                                });
+                            </script>
                             <div class="flex justify-end">
                                 <button type="submit" class="bg-yellow-600 text-white font-bold py-2 px-4 rounded-full hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2">Save Changes</button>
                             </div>

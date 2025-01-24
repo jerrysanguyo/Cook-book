@@ -40,4 +40,19 @@ class User extends Authenticatable
     {
         return self::where('id', $user)->first();
     }
+
+    public function profilePictureUser()
+    {
+        return $this->hasOne(Picture::class, 'added_by')->where('remarks', 'profile');
+    }
+
+    public function picturesAddedBy()
+    {
+        return $this->hasMany(Picture::class, 'added_by');
+    }
+
+    public function pictureUpdatedBy()
+    {
+        return $this->hasMany(Picture::class, 'updated_by');
+    }
 }

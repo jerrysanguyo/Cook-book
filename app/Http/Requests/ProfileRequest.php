@@ -15,7 +15,8 @@ class ProfileRequest extends FormRequest
     {
         return [
             'user_name' => ['required', 'string', 'max:255', 'unique:users,user_name,' . auth()->id()],
-            'password' => ['nullable', 'string', 'min:8', 'confirmed'],
+            'password' => ['nullable', 'string', 'min:8', 'confirmed'],        
+            'profile_picture' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:2048'],
         ];
     }
 }
