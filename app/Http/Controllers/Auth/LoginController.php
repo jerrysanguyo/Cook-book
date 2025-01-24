@@ -40,6 +40,6 @@ class LoginController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect()->route('welcome')->with('Success', 'You have logged out successfully!');
+        return redirect()->route('login.index')->with('Success', 'You have logged out successfully!');
     }
 }

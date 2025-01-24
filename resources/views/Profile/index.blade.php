@@ -1,4 +1,4 @@
-@extends('layouts.welcomeLayout')
+@extends('layouts.homeLayout')
 
 @section('content')
 <div class="flex items-center justify-center px-4 sm:px-6 lg:px-8 lg:min-h-screen">
@@ -14,7 +14,7 @@
             <div class="container mx-auto mt-4">
                 <div class="">
                     <div class="flex items-center">
-                        <img class="w-16 h-16 rounded-full mr-4" src="{{ Auth::user()->profile_picture_url }}" alt="Profile Picture">
+                        <img class="w-16 h-16 rounded-full mr-4" src="{{ asset('/image/default_profile.webp') }}" alt="Profile Picture">
                         <div>
                             <h2 class="text-xl font-bold">{{ Auth::user()->name }}</h2>
                             <p class="text-gray-600">{{ Auth::user()->email }}</p>

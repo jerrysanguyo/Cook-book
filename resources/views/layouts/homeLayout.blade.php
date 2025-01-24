@@ -20,7 +20,7 @@
                 </div>
                 <!-- Navigation Links -->
                 <div class="hidden md:flex items-center space-x-4">
-                    <a href="/" class="text-white hover:bg-yellow-700 px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                    <a href="{{ route(Auth::user()->role . '.home') }}" class="text-white hover:bg-yellow-700 px-3 py-2 rounded-md text-sm font-medium">Home</a>
                     <div class="relative">
                         <button id="user-menu-button" class="inline-flex text-white hover:bg-yellow-700 px-3 py-2 rounded-md text-sm font-medium focus:outline-none">
                             {{ Auth::user()->full_name }}
@@ -55,7 +55,7 @@
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="top-0 left-0 w-full bg-yellow-600 overflow-hidden max-h-0 transition-all duration-500 ease-in-out z-50">
             <div class="space-y-1 px-4 pt-4 pb-3 sm:px-6">
-                <a href="/" class="block text-white hover:bg-yellow-700 px-3 py-2 rounded-md text-base font-medium">Home</a>
+                <a href="{{ route(Auth::user()->role . '.home') }}" class="block text-white hover:bg-yellow-700 px-3 py-2 rounded-md text-base font-medium">Home</a>
             </div>
         </div>
     </nav>
