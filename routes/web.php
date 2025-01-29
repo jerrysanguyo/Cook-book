@@ -7,6 +7,7 @@ use App\{
     Http\Controllers\Auth\EmailVerificationController,
     Http\Controllers\HomeController,
     Http\Controllers\ProfileController,
+    Http\Controllers\IngredientTypeController,
 };
 
 Route::get('/', function () {
@@ -23,6 +24,7 @@ Route::middleware(['auth', 'check.user.role'])->prefix('superadmin')->name('supe
     Route::get('/email/send', [EmailVerificationController::class, 'sendVerificationEmail'])->name('verification.send');
     Route::get('/email/verify/{user}', [EmailVerificationController::class, 'verify'])->name('email.verify');
     Route::resource('profile', ProfileController::class);
+    Route::resource('ingredientType', IngredientTypeController::class);
 });
 
 Route::middleware(['auth', 'check.user.role'])->prefix('admin')->name('admin.')->group(function() 

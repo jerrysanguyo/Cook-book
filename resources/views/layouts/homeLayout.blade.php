@@ -6,7 +6,7 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
     <title>Laravel Tailwind Layout</title>
-    @vite('resources/css/app.css')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="overflow-auto bg-gray-100 lg:overflow-hidden">
     <nav class="bg-yellow-600">
@@ -21,6 +21,23 @@
                 <!-- Navigation Links -->
                 <div class="hidden md:flex items-center space-x-4">
                     <a href="{{ route(Auth::user()->role . '.home') }}" class="text-white hover:bg-yellow-700 px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                    <div class="relative">
+                        <button id="ingredient-menu-button" class="inline-flex text-white hover:bg-yellow-700 px-3 py-2 rounded-md text-sm font-medium focus:outline-none">
+                            Ingredients
+                            <svg class="-mr-1 size-5 text-white" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                                <path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <!-- Dropdown menu -->
+                        <div id="ingredient-menu" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden z-50">
+                            <a href="#" class="rounded-md block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                Ingredients list
+                            </a>
+                            <a href="{{ route(Auth::user()->role . '.ingredientType.index') }}" class="rounded-md block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                Ingrdient type
+                            </a>
+                        </div>
+                    </div>
                     <div class="relative">
                         <button id="user-menu-button" class="inline-flex text-white hover:bg-yellow-700 px-3 py-2 rounded-md text-sm font-medium focus:outline-none">
                             {{ Auth::user()->full_name }}
@@ -63,36 +80,6 @@
     <div class="py-4 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         @yield('content')
     </div>
-
-    <script>
-        const menuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        menuButton.addEventListener('click', () => {
-            if (mobileMenu.classList.contains('max-h-0')) {
-                // Open the menu
-                mobileMenu.classList.remove('max-h-0');
-                mobileMenu.classList.add('max-h-screen');
-            } else {
-                // Close the menu
-                mobileMenu.classList.remove('max-h-screen');
-                mobileMenu.classList.add('max-h-0');
-            }
-        });
-
-        const userMenuButton = document.getElementById('user-menu-button');
-        const userMenu = document.getElementById('user-menu');
-
-        userMenuButton.addEventListener('click', () => {
-            userMenu.classList.toggle('hidden');
-        });
-
-        // Close the dropdown if clicking outside
-        document.addEventListener('click', (event) => {
-            if (!userMenu.contains(event.target) && !userMenuButton.contains(event.target)) {
-                userMenu.classList.add('hidden');
-            }
-        });
-    </script>
+    <script src="{{ asset('js/homeLayoutJs.js') }}"></script>
 </body>
 </html>
