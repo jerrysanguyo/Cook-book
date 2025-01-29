@@ -13,29 +13,40 @@ menuButton.addEventListener('click', () => {
     }
 });
 
-const userMenuButton = document.getElementById('user-menu-button');
-const userMenu = document.getElementById('user-menu');
+// Dropdown menu and actions dropdown
+document.addEventListener("DOMContentLoaded", function () {
+    const menus = [
+        { button: "user-menu-button", menu: "user-menu" },
+        { button: "ingredient-menu-button", menu: "ingredient-menu" }
+    ];
+    
+    const dropdownButtons = document.querySelectorAll(".dropdown-toggle");
+    let activeMenu = null;
 
-userMenuButton.addEventListener('click', () => {
-    userMenu.classList.toggle('hidden');
-});
-
-// Close the dropdown if clicking outside
-document.addEventListener('click', (event) => {
-    if (!userMenu.contains(event.target) && !userMenuButton.contains(event.target)) {
-        userMenu.classList.add('hidden');
+    function toggleMenu(btn, menuEl) {
+        event.stopPropagation();
+        if (activeMenu && activeMenu !== menuEl) activeMenu.classList.add("hidden");
+        menuEl.classList.toggle("hidden");
+        activeMenu = menuEl.classList.contains("hidden") ? null : menuEl;
     }
-});
-const ingredientMenuButton = document.getElementById('ingredient-menu-button');
-const ingredientMenu = document.getElementById('ingredient-menu');
 
-ingredientMenuButton.addEventListener('click', () => {
-    ingredientMenu.classList.toggle('hidden');
-});
+    menus.forEach(({ button, menu }) => {
+        const btn = document.getElementById(button);
+        const menuEl = document.getElementById(menu);
+        btn.addEventListener("click", () => toggleMenu(btn, menuEl));
+    });
 
-// Close the dropdown if clicking outside
-document.addEventListener('click', (event) => {
-    if (!ingredientMenu.contains(event.target) && !ingredientMenuButton.contains(event.target)) {
-        ingredientMenu.classList.add('hidden');
-    }
+    dropdownButtons.forEach(button => {
+        button.addEventListener("click", function (event) {
+            const dropdownMenu = document.getElementById(button.getAttribute("data-dropdown"));
+            toggleMenu(button, dropdownMenu);
+        });
+    });
+
+    document.addEventListener("click", () => {
+        if (activeMenu) {
+            activeMenu.classList.add("hidden");
+            activeMenu = null;
+        }
+    });
 });

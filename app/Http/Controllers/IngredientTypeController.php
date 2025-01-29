@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\{
     Models\IngredientType,
     Services\IngredientTypeService,
-    Http\Request\IngredientTypeRequest,
+    Http\Requests\IngredientTypeRequest,
+    DataTables\CmsDataTable,
 };
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class IngredientTypeController extends Controller
 {
@@ -18,9 +20,13 @@ class IngredientTypeController extends Controller
         $this->ingredientTypeService = $ingredientTypeService;
     }
 
-    public function index()
+    public function index(CmsDataTable $dataTable)
     {
-        return view('cms.index');
+        $listOfIngredientTye = IngredientType::getAllIngredientType();
+        return $dataTable->render('cms.index', compact(
+            'dataTable',
+            'listOfIngredientTye',
+        ));
     }
     
     public function store(IngredientTypeRequest $request)
