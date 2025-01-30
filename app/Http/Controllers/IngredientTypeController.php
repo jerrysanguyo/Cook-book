@@ -8,6 +8,8 @@ use App\{
     Http\Requests\IngredientTypeRequest,
     DataTables\CmsDataTable,
 };
+use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,10 +24,14 @@ class IngredientTypeController extends Controller
 
     public function index(CmsDataTable $dataTable)
     {
-        $listOfIngredientTye = IngredientType::getAllIngredientType();
-        return $dataTable->render('cms.index', compact(
+        $title = 'Ingredient Type';
+        $resource = 'ingredientType';
+        $data = IngredientType::getAllIngredientType();
+        return $dataTable->render('Cms.index', compact(
             'dataTable',
-            'listOfIngredientTye',
+            'data',
+            'title',
+            'resource',
         ));
     }
     
@@ -40,7 +46,9 @@ class IngredientTypeController extends Controller
     
     public function edit(IngredientType $ingredientType)
     {
-        return view('cms.edit', compact('ingredientType'));
+        $title = 'Ingredient Type';
+    
+        return view('cms.edit', compact('ingredientType', 'title'));
     }
     
     public function update(IngredientTypeRequest $request, IngredientType $ingredientType)

@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container mx-auto max-w-lg p-6 bg-white rounded-lg shadow-md mt-6">
-    <h2 class="text-2xl font-bold text-gray-800 mb-4">Update Ingredient Type</h2>
+    <h2 class="text-2xl font-bold text-gray-800 mb-4">Update {{ $title }}</h2>
 
     <!-- Success Message -->
     @if(session('success'))
