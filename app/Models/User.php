@@ -65,4 +65,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(IngredientType::class, 'updated_by');
     }
+
+    public function ingredientAddedBy()
+    {
+        return $this->hasMany(Ingredient::class, 'added_by');
+    }
+
+    public function ingredientUpdatedBy()
+    {
+        return $this->hasMany(Ingredient::class, 'updated_by');
+    }
 }

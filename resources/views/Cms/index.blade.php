@@ -19,6 +19,9 @@
             <thead class="bg-gradient-to-r from-gray-200 to-gray-300 text-gray-700 text-left text-sm uppercase">
                 <tr>
                     <th class="px-4 py-3 border-b">Name</th>
+                    @if($resource === 'ingredient')
+                    <td class="px-4 py-2 border-b">Ingredient Type</td>
+                    @endif
                     <th class="px-4 py-3 border-b">Remarks</th>
                     <th class="px-4 py-3 border-b">Created By</th>
                     <th class="px-4 py-3 border-b">Updated By</th>
@@ -29,6 +32,9 @@
                 @foreach($data as $item)
                 <tr class="hover:bg-gray-50 transition-colors">
                     <td class="px-4 py-2 border-b">{{ $item->name }}</td>
+                    @if($resource === 'ingredient')
+                    <td class="px-4 py-2 border-b">{{ $item->ingredientType->name }}</td>
+                    @endif
                     <td class="px-4 py-2 border-b">{{ $item->remarks }}</td>
                     <td class="px-4 py-2 border-b">{{ $item->addedBy->full_name ?? 'N/A' }}</td>
                     <td class="px-4 py-2 border-b">{{ $item->updatedBy->full_name ?? 'N/A' }}</td>
@@ -78,16 +84,32 @@
         <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md transform transition-all"
             @click.away="openModal = false">
             <h3 class="text-xl font-semibold mb-4">Add {{ $title }}</h3>
-            <form action="{{ route(Auth::user()->role . '.ingredientType.store') }}" method="POST">
+            <form action="{{ route(Auth::user()->role  . '.' . $resource . '.store') }}" method="POST">
                 @csrf
                 <div class="mb-4">
                     <label class="block text-gray-700 font-medium mb-2">Name:</label>
                     <input type="text" id="name" name="name" class="w-full p-3 border border-gray-300 rounded-lg">
+                    @error('name')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
+                @if($resource === 'ingredient')
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-medium mb-2">Ingredient Type:</label>
+                    <select id="ingredient_type_id" name="ingredient_type_id" class="w-full p-3 border border-gray-300 rounded-lg">
+                        @foreach($subData as $category)
+                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                @endif
                 <div class="mb-4">
                     <label class="block text-gray-700 font-medium mb-2">Remarks:</label>
                     <textarea id="remarks" name="remarks"
                         class="w-full p-3 border border-gray-300 rounded-lg"></textarea>
+                    @error('remarks')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
                 <div class="flex justify-end">
                     <button type="button" @click="openModal = false"

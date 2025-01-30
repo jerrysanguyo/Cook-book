@@ -2,15 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\{
-    Models\IngredientType,
-    Services\IngredientTypeService,
-    Http\Requests\IngredientTypeRequest,
-    DataTables\CmsDataTable,
-};
-use Yajra\DataTables\Facades\DataTables;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Http\Request;
+use App\Models\IngredientType;
+use App\Http\Requests\IngredientTypeRequest;
+use App\Services\IngredientTypeService;
+use App\DataTables\CmsDataTable;
 use Illuminate\Support\Facades\Auth;
 
 class IngredientTypeController extends Controller
@@ -27,6 +22,7 @@ class IngredientTypeController extends Controller
         $title = 'Ingredient Type';
         $resource = 'ingredientType';
         $data = IngredientType::getAllIngredientType();
+        
         return $dataTable->render('Cms.index', compact(
             'dataTable',
             'data',
@@ -47,8 +43,13 @@ class IngredientTypeController extends Controller
     public function edit(IngredientType $ingredientType)
     {
         $title = 'Ingredient Type';
+        $resource = 'ingredientType';
     
-        return view('cms.edit', compact('ingredientType', 'title'));
+        return view('cms.edit', compact(
+            'ingredientType', 
+            'title',
+            'resource',
+        ));
     }
     
     public function update(IngredientTypeRequest $request, IngredientType $ingredientType)

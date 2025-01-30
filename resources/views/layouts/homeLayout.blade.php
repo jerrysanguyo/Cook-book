@@ -41,7 +41,7 @@
                         </button>
                         <!-- Dropdown menu -->
                         <div id="ingredient-menu" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden z-50">
-                            <a href="#" class="rounded-md block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            <a href="{{ route(Auth::user()->role . '.ingredient.index') }}" class="rounded-md block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                 Ingredients list
                             </a>
                             <a href="{{ route(Auth::user()->role . '.ingredientType.index') }}" class="rounded-md block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">

@@ -5,26 +5,27 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class IngredientType extends Model
+class Ingredient extends Model
 {
     use HasFactory;
 
-    protected $table = 'ingredient_types';
+    protected $table = 'ingredients';
     protected $fillable = [
         'name',
+        'ingredient_type_id',
         'remarks',
         'added_by',
-        'updated_by'
+        'updated_by',
     ];
 
-    public static function getAllIngredientType()
+    public static function getAllIngredient()
     {
         return self::all();
     }
 
-    public function ingredient()
+    public function ingredientType()
     {
-        return $this->hasMany(Ingredient::class, 'ingredient_type_id');
+        return $this->belongsTo(IngredientType::class, 'ingredient_type_id');
     }
 
     public function addedBy()
