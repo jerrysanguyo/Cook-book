@@ -9,6 +9,7 @@ use App\{
     Http\Controllers\ProfileController,
     Http\Controllers\IngredientTypeController,
     Http\Controllers\IngredientController,
+    Http\Controllers\CategoryController,
 };
 
 Route::get('/', function () {
@@ -27,6 +28,7 @@ Route::middleware(['auth', 'check.user.role'])->prefix('superadmin')->name('supe
     Route::resource('profile', ProfileController::class);
     Route::resource('ingredientType', IngredientTypeController::class);
     Route::resource('ingredient', IngredientController::class);
+    Route::resource('category', CategoryController::class);
 });
 
 Route::middleware(['auth', 'check.user.role'])->prefix('admin')->name('admin.')->group(function() 

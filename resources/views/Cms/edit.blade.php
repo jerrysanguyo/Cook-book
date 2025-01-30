@@ -27,8 +27,8 @@
         <div class="mb-4">
             <label class="block text-gray-700 font-medium mb-2">Ingredient Type:</label>
             <select id="ingredient_type_id" name="ingredient_type_id" class="w-full p-3 border border-gray-300 rounded-lg">
-                @foreach($subData as $category)
-                <option value="{{ $category->id }}" {{ $$resource->ingredient_type_id == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                @foreach($subData as $material)
+                <option value="{{ $material->id }}" {{ $$resource->ingredient_type_id == $material->id ? 'selected' : '' }}>{{ $material->name }}</option>
                 @endforeach
             </select>
             @error('ingredient_type_id')

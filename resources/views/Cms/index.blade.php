@@ -97,8 +97,8 @@
                 <div class="mb-4">
                     <label class="block text-gray-700 font-medium mb-2">Ingredient Type:</label>
                     <select id="ingredient_type_id" name="ingredient_type_id" class="w-full p-3 border border-gray-300 rounded-lg">
-                        @foreach($subData as $category)
-                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @foreach($subData as $material)
+                        <option value="{{ $material->id }}">{{ $material->name }}</option>
                         @endforeach
                     </select>
                 </div>

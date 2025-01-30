@@ -49,6 +49,7 @@
                             </a>
                         </div>
                     </div>
+                    <a href="{{ route(Auth::user()->role . '.category.index') }}" class="text-white hover:bg-yellow-700 px-3 py-2 rounded-md text-sm font-medium">Category</a>
                     <div class="relative">
                         <button id="user-menu-button" class="inline-flex text-white hover:bg-yellow-700 px-3 py-2 rounded-md text-sm font-medium focus:outline-none">
                             {{ Auth::user()->full_name }}
