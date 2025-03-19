@@ -10,6 +10,7 @@ use App\{
     Http\Controllers\IngredientTypeController,
     Http\Controllers\IngredientController,
     Http\Controllers\CategoryController,
+    Http\Controllers\CourseController,
 };
 
 Route::get('/', function () {
@@ -29,6 +30,7 @@ Route::middleware(['auth', 'check.user.role'])->prefix('superadmin')->name('supe
     Route::resource('ingredientType', IngredientTypeController::class);
     Route::resource('ingredient', IngredientController::class);
     Route::resource('category', CategoryController::class);
+    Route::resource('course', CourseController::class);
 });
 
 Route::middleware(['auth', 'check.user.role'])->prefix('admin')->name('admin.')->group(function() 

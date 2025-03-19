@@ -39,28 +39,35 @@
                     <td class="px-4 py-2 border-b">{{ $item->addedBy->full_name ?? 'N/A' }}</td>
                     <td class="px-4 py-2 border-b">{{ $item->updatedBy->full_name ?? 'N/A' }}</td>
                     <td class="px-4 py-2 border-b text-center">
-                        <div class="relative inline-block text-left">
+                        <div class="relative inline-block text-left" x-data="{ openDropdown: false }">
                             <!-- Button to Toggle Dropdown -->
-                            <button class="dropdown-toggle bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded shadow-sm flex items-center"
-                                data-dropdown="dropdown-{{ $item->id }}">
+                            <button @click="openDropdown = !openDropdown"
+                                class="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded shadow-sm flex items-center">
                                 Actions
-                                <svg class="w-4 h-4 ml-2 transition-transform duration-200"
-                                    fill="none" stroke="currentColor" stroke-width="2"
-                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <svg class="w-4 h-4 ml-2 transition-transform duration-200" fill="none"
+                                    stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
                                 </svg>
                             </button>
 
                             <!-- Dropdown Menu -->
-                            <div id="dropdown-{{ $item->id }}"
-                                class="dropdown-menu hidden absolute right-0 mt-2 w-40 bg-white border rounded-md shadow-lg z-50">
+                            <div x-show="openDropdown" @click.away="openDropdown = false" x-cloak
+                                x-transition:enter="transition ease-out duration-200"
+                                x-transition:enter-start="opacity-0 transform scale-95"
+                                x-transition:enter-end="opacity-100 transform scale-100"
+                                x-transition:leave="transition ease-in duration-75"
+                                x-transition:leave-start="opacity-100 transform scale-100"
+                                x-transition:leave-end="opacity-0 transform scale-95"
+                                class="absolute right-0 mt-2 w-40 bg-white border rounded-md shadow-lg z-50">
                                 <!-- Edit -->
                                 <a href="{{ route(Auth::user()->role . '.' . $resource . '.edit', $item->id) }}"
                                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                     Edit
                                 </a>
                                 <!-- Destroy -->
-                                <form action="{{ route(Auth::user()->role  . '.' . $resource . '.destroy', $item->id) }}"
+                                <form
+                                    action="{{ route(Auth::user()->role  . '.' . $resource . '.destroy', $item->id) }}"
                                     method="POST"
                                     onsubmit="return confirm('Are you sure you want to delete this ingredient type?');">
                                     @csrf
@@ -79,8 +86,12 @@
         </table>
     </div>
 
-    <!-- Modal -->
-    <div x-show="openModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+    <!-- Modal with Animation -->
+    <div x-show="openModal" @click.away="openModal = false" x-cloak
+        x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform scale-90"
+        x-transition:enter-end="opacity-100 transform scale-100" x-transition:leave="transition ease-in duration-200"
+        x-transition:leave-start="opacity-100 transform scale-100" x-transition:leave-end="opacity-0 transform scale-90"
+        class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
         <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md transform transition-all"
             @click.away="openModal = false">
             <h3 class="text-xl font-semibold mb-4">Add {{ $title }}</h3>
@@ -90,13 +101,14 @@
                     <label class="block text-gray-700 font-medium mb-2">Name:</label>
                     <input type="text" id="name" name="name" class="w-full p-3 border border-gray-300 rounded-lg">
                     @error('name')
-                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                     @enderror
                 </div>
                 @if($resource === 'ingredient')
                 <div class="mb-4">
                     <label class="block text-gray-700 font-medium mb-2">Ingredient Type:</label>
-                    <select id="ingredient_type_id" name="ingredient_type_id" class="w-full p-3 border border-gray-300 rounded-lg">
+                    <select id="ingredient_type_id" name="ingredient_type_id"
+                        class="w-full p-3 border border-gray-300 rounded-lg">
                         @foreach($subData as $material)
                         <option value="{{ $material->id }}">{{ $material->name }}</option>
                         @endforeach
@@ -108,7 +120,7 @@
                     <textarea id="remarks" name="remarks"
                         class="w-full p-3 border border-gray-300 rounded-lg"></textarea>
                     @error('remarks')
-                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                     @enderror
                 </div>
                 <div class="flex justify-end">
@@ -120,19 +132,20 @@
             </form>
         </div>
     </div>
-
 </div>
 
 @push('scripts')
 <script>
-    $(document).ready(function() {
-        $('#{{ $resource }}-table').DataTable({
-            "processing": true,
-            "serverSide": false,
-            "pageLength": 10,
-            "order": [[0, "desc"]],
-        });
+$(document).ready(function() {
+    $('#{{ $resource }}-table').DataTable({
+        "processing": true,
+        "serverSide": false,
+        "pageLength": 10,
+        "order": [
+            [0, "desc"]
+        ],
     });
+});
 </script>
 @endpush
 
